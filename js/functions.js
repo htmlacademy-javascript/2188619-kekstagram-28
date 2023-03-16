@@ -25,30 +25,13 @@ checkPalindrom('Лёша на полке клопа нашёл '); // true
 
 
 function checkPalindrom(text) {
-  let textWithOutSpaces = '';
+  text = text.replaceAll(' ', '');
+  text = text.toLowerCase();
 
-  for (let i = 0; i < text.length; i++) {
-    if (text[i] !== ' ') {
-      textWithOutSpaces += text[i];
-    }
-  }
+  const reversedText = text.split('').reverse().join();
 
-  text = textWithOutSpaces.toLowerCase();
-
-  let start = 0;
-  let end = text.length - 1;
-
-  while (start < end) {
-    if (text[start] !== text[end]) {
-      return false;
-    }
-
-    start++;
-    end--;
-  }
-  return true;
+  return text === reversedText;
 }
-
 
 // Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN:
 
