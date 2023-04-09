@@ -79,3 +79,4 @@ const createPhotos = () => Array.from({ length: PHOTO_COUNT }, createPhoto);
 
 export { createPhotos };
 
+

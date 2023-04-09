@@ -18,3 +18,4 @@ const renderPhotos = () => {
 };
 
 export { renderPhotos };
+
