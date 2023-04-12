@@ -7,7 +7,7 @@ const PERCENT_DIVIDER = 100;
 const btnControlSmaller = document.querySelector('.scale__control--smaller');
 const btnControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const imageElement = document.querySelector('.img-upload__preview');
+const imageElement = document.querySelector('.img-upload__preview img');
 
 function scaleImage(value) {
   imageElement.style.transform = `scale(${value / PERCENT_DIVIDER})`;
