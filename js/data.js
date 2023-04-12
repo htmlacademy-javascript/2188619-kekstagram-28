@@ -1,4 +1,4 @@
-import { getRandomInteger, getRandomArrayElement } from '/js/util.js';
+import { getRandomInteger, getRandomArrayElement } from './util.js';
 
 const PHOTO_DESCRIPTIONS = [
   'Лучшее фото этого',
