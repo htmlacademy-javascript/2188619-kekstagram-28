@@ -54,4 +54,3 @@ function onSuccessMessageClick(evt) {
 }
 
 export { createErrorMessage, createSuccessMessage };
-
