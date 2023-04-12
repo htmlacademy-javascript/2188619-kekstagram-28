@@ -1,10 +1,8 @@
+const imgUploadForm = document.querySelector('.img-upload__form');
+const hashtag = document.querySelector('.text__hashtags');
+
 const REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG = 5;
-const MAX_COMMENTS_LENGTH = 140;
-
-const imgUploadForm = document.querySelector('.img-upload__form');
-const hashtagField = document.querySelector('.text__hashtags');
-const textDescription = document.querySelector('.text__description');
 
 const pristine = new Pristine(imgUploadForm, {
   classTo: 'img-upload__text',
@@ -13,39 +11,26 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextClass: 'img-upload__error'
 });
 
-const isValidComment = (comment) => comment.length <= MAX_COMMENTS_LENGTH; //эта функция не работает....
-
-const createHashtagArray = (value) => value.trim().split(' ').filter((item) => item);
-
 const checkIsHashtagRegexp = (hashtags) => {
-  if(!hashtags) {
-    return true;
-  }
-  const hashtagArray = createHashtagArray(hashtags);
-  return hashtagArray.every((hashtag) => REGEXP.test(hashtag));
+  const hashtagArray = hashtags.trim().split(' ');
+  const isValid = hashtagArray.some((hashtagElement) => !REGEXP.test(hashtagElement));
+  return (!hashtag.value.length) ? isValid : !isValid;
 };
 
 const checkHashtagLength = (hashtags) => {
-  const hashtagArray = createHashtagArray(hashtags);
+  const hashtagArray = hashtags.trim().split(' ');
   return hashtagArray.length <= MAX_HASHTAG;
 };
 
 const checkHashtagSame = (hashtags) => {
-  const hashtagArray = createHashtagArray(hashtags);
+  const hashtagArray = hashtags.trim().split(' ');
   return new Set(hashtagArray).size === hashtagArray.length;
 };
 
-pristine.addValidator(hashtagField, checkIsHashtagRegexp, 'Неверный хэш-тег, хэш-теги должны разделяться пробелами');
-pristine.addValidator(hashtagField, checkHashtagLength, `Нельзя указать больше ${MAX_HASHTAG} хэш-тегов`);
-pristine.addValidator(hashtagField, checkHashtagSame, 'Один и тот же хэш-тег не может быть использован дважды');
-pristine.addValidator(textDescription, isValidComment, `Длинна комментария не должна превышать ${MAX_COMMENTS_LENGTH} символов`);
+pristine.addValidator(hashtag, checkIsHashtagRegexp, 'неверный хэш-тег, хэш-теги должны разделяться пробелами');
+pristine.addValidator(hashtag, checkHashtagLength, `нельзя указать больше ${MAX_HASHTAG} хэш-тегов`);
+pristine.addValidator(hashtag, checkHashtagSame, 'один и тот же хэш-тег не может быть использован дважды');
 
-const resetInputValue = () => {
-  hashtagField.value = '';
-  textDescription.value = '';
-};
-
-const resetPristine = () => pristine.reset();
 const validateForm = () => pristine.validate();
 
-export { validateForm, resetPristine, resetInputValue };
+export { validateForm };
