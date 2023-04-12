@@ -12,4 +12,3 @@ getData()
   .catch((err) => showAlert(err.message));
 
 loadPhoto();
-
