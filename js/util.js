@@ -1,3 +1,5 @@
+const ALERT_SHOW_TIME = 5000;
+
 const getRandomInteger = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
@@ -21,7 +23,7 @@ const showAlert = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  },);
+  }, ALERT_SHOW_TIME);
 };
 
 export { getRandomInteger, getRandomArrayElement, isEscapeKey, showAlert };
