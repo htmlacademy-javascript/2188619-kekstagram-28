@@ -13,12 +13,12 @@ const pristine = new Pristine(imgUploadForm, {
   errorTextClass: 'img-upload__error'
 });
 
-const isValidComment = (comment) => comment.length <= MAX_COMMENTS_LENGTH; //эта функция не работает....
+const isValidComment = (comment) => comment.length <= MAX_COMMENTS_LENGTH;
 
-const createHashtagArray = (value) => value.trim().split(' ').filter((item) => item);
+const createHashtagArray = (value) => value.trim().toLowerCase().split(' ').filter((item) => item);
 
 const checkIsHashtagRegexp = (hashtags) => {
-  if(!hashtags) {
+  if (!hashtags) {
     return true;
   }
   const hashtagArray = createHashtagArray(hashtags);
@@ -43,6 +43,7 @@ pristine.addValidator(textDescription, isValidComment, `Длинна комме�
 const resetInputValue = () => {
   hashtagField.value = '';
   textDescription.value = '';
+  imgUploadForm.reset();
 };
 
 const resetPristine = () => pristine.reset();
