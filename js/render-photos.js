@@ -1,14 +1,13 @@
-import { createPhotos } from './data.js';
 import { onPictureClick } from './big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPhotos = createPhotos();
 
 const createPhoto = (photo) => {
   const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.querySelector('.picture__img').src = photo.url;
-  pictureElement.querySelector('.picture__img').alt = photo.description;
+  const pictureImg = pictureElement.querySelector('.picture__img');
+  pictureImg.src = photo.url;
+  pictureImg.alt = photo.description;
   pictureElement.querySelector('.picture__comments').textContent = photo.comments.length;
   pictureElement.querySelector('.picture__likes').textContent = photo.likes;
 
@@ -16,11 +15,12 @@ const createPhoto = (photo) => {
     evt.preventDefault();
     onPictureClick(photo);
   });
+
   return pictureElement;
 };
 
-const renderPhotos = () => {
-  similarPhotos.forEach((item) => picturesContainer.append(createPhoto(item)));
+const renderPhotos = (data) => {
+  data.forEach((item) => picturesContainer.append(createPhoto(item)));
 };
 
 export { renderPhotos };
