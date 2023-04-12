@@ -1,9 +1,7 @@
-import { createPhotos } from './data.js';
 import { onPictureClick } from './big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPhotos = createPhotos();
 
 const createPhoto = (photo) => {
   const pictureElement = pictureTemplate.cloneNode(true);
@@ -16,11 +14,12 @@ const createPhoto = (photo) => {
     evt.preventDefault();
     onPictureClick(photo);
   });
+
   return pictureElement;
 };
 
-const renderPhotos = () => {
-  similarPhotos.forEach((item) => picturesContainer.append(createPhoto(item)));
+const renderPhotos = (data) => {
+  data.forEach((item) => picturesContainer.append(createPhoto(item)));
 };
 
 export { renderPhotos };
