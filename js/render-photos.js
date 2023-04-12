@@ -16,6 +16,7 @@ const createPhoto = (photo) => {
     evt.preventDefault();
     onPictureClick(photo);
   });
+
   return pictureElement;
 };
 
