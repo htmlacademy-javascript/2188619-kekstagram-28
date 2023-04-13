@@ -32,7 +32,7 @@ const EFFECTS = [
     unit: '%',
   },
   {
-    name: 'fobos',
+    name: 'phobos',
     style: 'blur',
     min: 0,
     max: 3,
