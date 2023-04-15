@@ -1,29 +1,34 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeKey, renderMessage } from './util.js';
 
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 
-const renderMessage = (element) => document.body.append(element);
+let errorMessageClone;
+let successMessageClone;
 
 const createErrorMessage = () => {
-  const errorMessage = errorTemplate.cloneNode(true);
-  renderMessage(errorMessage);
-
-  document.querySelector('.error').addEventListener('click', onErrorMessageClick);
+  errorMessageClone = errorTemplate.cloneNode(true);
+  renderMessage(errorMessageClone);
+  errorMessageClone.addEventListener('click', onErrorMessageClick);
   document.addEventListener('keydown', onErrorMessageKeydown);
 };
 
-const removeErrorMessage = () => document.querySelector('.error').remove();
-
-const createSuccessMessage = () => {
-  const successMessage = successTemplate.cloneNode(true);
-  renderMessage(successMessage);
-
-  document.addEventListener('keydown', onSuccessMessageKeydown);
-  document.querySelector('.success').addEventListener('click', onSuccessMessageClick);
+const removeErrorMessage = () => {
+  errorMessageClone.remove();
+  document.removeEventListener('keydown', onErrorMessageKeydown);
 };
 
-const removeSuccessMessage = () => document.querySelector('.success').remove();
+const createSuccessMessage = () => {
+  successMessageClone = successTemplate.cloneNode(true);
+  renderMessage(successMessageClone);
+  successMessageClone.addEventListener('click', onSuccessMessageClick);
+  document.addEventListener('keydown', onSuccessMessageKeydown);
+};
+
+const removeSuccessMessage = () => {
+  successMessageClone.remove();
+  document.removeEventListener('keydown', onSuccessMessageKeydown);
+};
 
 function onErrorMessageKeydown(evt) {
   if (isEscapeKey(evt)) {
@@ -32,17 +37,17 @@ function onErrorMessageKeydown(evt) {
   }
 }
 
-function onErrorMessageClick(evt) {
-  evt.preventDefault();
-  if (evt.target.closest('.error__button') || evt.target.matches('.error')) {
-    removeErrorMessage();
-  }
-}
-
 function onSuccessMessageKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     removeSuccessMessage();
+  }
+}
+
+function onErrorMessageClick(evt) {
+  evt.preventDefault();
+  if (evt.target.closest('.error__button') || evt.target.matches('.error')) {
+    removeErrorMessage();
   }
 }
 
