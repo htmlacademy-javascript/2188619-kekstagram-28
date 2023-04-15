@@ -94,12 +94,11 @@ const onEffectsChange = (evt) => {
   updateSlider();
 };
 
-const onSliderUpdate = () => {
-  const sliderValue = sliderElement.noUiSlider.get();
+const onSliderUpdate = (sliderValues) => {
   imageElement.style.filter = isDefault()
     ? defaultEffect.style
-    : `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
-  effectLevelElement.value = sliderValue;
+    : `${chosenEffect.style}(${sliderValues[0]}${chosenEffect.unit})`;
+  effectLevelElement.value = sliderValues[0];
 };
 
 const resetEffects = () => {
