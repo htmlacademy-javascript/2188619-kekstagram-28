@@ -7,10 +7,9 @@ const hashtagField = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 
 const pristine = new Pristine(imgUploadForm, {
-  classTo: 'img-upload__text',
-  errorTextParent: 'img-upload__text',
-  errorTextTag: 'span',
-  errorTextClass: 'img-upload__error'
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'form-field-error'
 });
 
 const isValidComment = (comment) => comment.length <= MAX_COMMENTS_LENGTH;
@@ -26,11 +25,17 @@ const checkIsHashtagRegexp = (hashtags) => {
 };
 
 const checkHashtagLength = (hashtags) => {
+  if (!hashtags) {
+    return true;
+  }
   const hashtagArray = createHashtagArray(hashtags);
   return hashtagArray.length <= MAX_HASHTAG;
 };
 
 const checkHashtagSame = (hashtags) => {
+  if (!hashtags) {
+    return true;
+  }
   const hashtagArray = createHashtagArray(hashtags);
   return new Set(hashtagArray).size === hashtagArray.length;
 };
