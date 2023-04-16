@@ -7,10 +7,9 @@ const hashtagField = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 
 const pristine = new Pristine(imgUploadForm, {
-  classTo: 'img-upload__text',
-  errorTextParent: 'img-upload__text',
-  errorTextTag: 'span',
-  errorTextClass: 'img-upload__error'
+  classTo: 'img-upload__field-wrapper',
+  errorTextParent: 'img-upload__field-wrapper',
+  errorTextClass: 'form-field-error'
 });
 
 const isValidComment = (comment) => comment.length <= MAX_COMMENTS_LENGTH;
@@ -26,11 +25,17 @@ const checkIsHashtagRegexp = (hashtags) => {
 };
 
 const checkHashtagLength = (hashtags) => {
+  if (!hashtags) {
+    return true;
+  }
   const hashtagArray = createHashtagArray(hashtags);
   return hashtagArray.length <= MAX_HASHTAG;
 };
 
 const checkHashtagSame = (hashtags) => {
+  if (!hashtags) {
+    return true;
+  }
   const hashtagArray = createHashtagArray(hashtags);
   return new Set(hashtagArray).size === hashtagArray.length;
 };
@@ -40,13 +45,7 @@ pristine.addValidator(hashtagField, checkHashtagLength, `Нельзя указа
 pristine.addValidator(hashtagField, checkHashtagSame, 'Один и тот же хэш-тег не может быть использован дважды');
 pristine.addValidator(textDescription, isValidComment, `Длинна комментария не должна превышать ${MAX_COMMENTS_LENGTH} символов`);
 
-const resetInputValue = () => {
-  hashtagField.value = '';
-  textDescription.value = '';
-  imgUploadForm.reset();
-};
-
 const resetPristine = () => pristine.reset();
 const validateForm = () => pristine.validate();
 
-export { validateForm, resetPristine, resetInputValue };
+export { validateForm, resetPristine };
