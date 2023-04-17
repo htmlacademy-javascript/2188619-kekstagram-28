@@ -6,7 +6,8 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureCloseBtn = document.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
-const socialCommentCount = document.querySelector('.social__comment-count');
+const socialCommentsCount = document.querySelector('.comments-count');
+const socialCommentsNumber = document.querySelector('.comments-number');
 const commentsLoaderBtn = document.querySelector('.comments-loader');
 
 let showingComments = 0;
@@ -22,11 +23,17 @@ const fillCommentData = (comment) => {
 };
 
 const renderComments = (commentCurrent) => {
-  commentCurrent.forEach((comment) => commentsList.append(fillCommentData(comment)));
+  const fragment = new DocumentFragment();
+  commentCurrent.forEach((comment) => {
+    const element = fillCommentData(comment);
+    fragment.append(element);
+  });
+  commentsList.append(fragment);
 };
 
 const fillCommentsCount = () => {
-  socialCommentCount.innerHTML = `${showingComments} из <span class="comments-count">${comments.length}</span> комментариев`;
+  socialCommentsNumber.textContent = showingComments;
+  socialCommentsCount.textContent = comments.length;
 };
 
 const showComments = () => {

@@ -22,15 +22,27 @@ const onSmallerButtonClick = () => {
 
 const onBiggerButtonClick = () => {
   const currentValue = parseInt(scaleControlValue.value, 10);
-  const newValue = Math.max(MAX_SCALE_VALUE,currentValue + SCALE_STEP);
+  const newValue = Math.min(MAX_SCALE_VALUE,currentValue + SCALE_STEP);
 
   scaleImage(newValue);
 };
 
 const resetScale = () => scaleImage(DEFAULT_VALUE);
 
+const initScale = () => {
+  resetScale();
+  btnControlSmaller.addEventListener('click', onSmallerButtonClick);
+  btnControlBigger.addEventListener('click', onBiggerButtonClick);
+};
+
+const destroyScale = () => {
+  resetScale();
+  btnControlSmaller.removeEventListener('click', onSmallerButtonClick);
+  btnControlBigger.removeEventListener('click', onBiggerButtonClick);
+};
+
 btnControlSmaller.addEventListener('click', onSmallerButtonClick);
 btnControlBigger.addEventListener('click', onBiggerButtonClick);
 
-export { resetScale };
+export { destroyScale, initScale };
 

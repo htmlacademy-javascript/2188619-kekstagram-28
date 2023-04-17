@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
 import { validateForm, resetPristine } from './validation-form.js';
-import { resetScale } from './scale.js';
+import { destroyScale, initScale } from './scale.js';
 import { resetEffects } from './effect.js';
 import { sendData } from './api.js';
 import { createErrorMessage, createSuccessMessage } from './fetch-message.js';
@@ -20,7 +20,7 @@ const submitButton = document.querySelector('.img-upload__submit');
 const openEditingImage = () => {
   editImage.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  resetScale();
+  initScale();
   resetEffects();
 
   imgUploadCloseButton.addEventListener('click', onEditImageCloseButtonClick);
@@ -31,7 +31,7 @@ const closeEditingImage = () => {
   imgUploadForm.reset();
   editImage.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  resetScale();
+  destroyScale();
   resetEffects();
   resetPristine();
 
