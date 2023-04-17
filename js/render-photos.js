@@ -20,7 +20,12 @@ const createPhoto = (photo) => {
 };
 
 const renderPhotos = (data) => {
-  data.forEach((item) => picturesContainer.append(createPhoto(item)));
+  const fragment = new DocumentFragment();
+  data.forEach((item) => {
+    const element = createPhoto(item);
+    fragment.append(element);
+  });
+  picturesContainer.append(fragment);
 };
 
 export { renderPhotos };
